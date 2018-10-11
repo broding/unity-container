@@ -7,9 +7,9 @@ namespace BasRoding.UnityContainer {
     public class PoolContainer<U, T> : Container<U, T> where U : ContainerItem<T> {
 
         [SerializeField] public int InitialPoolSize = 20;
-        [SerializeField] public int MaxPoolSize;
+        [SerializeField] public int MaxPoolSize = 100;
 
-        private Stack<U> pool = new Stack<U>();
+        private readonly Stack<U> pool = new Stack<U>();
 
         public override void Initialize() {
             base.Initialize();

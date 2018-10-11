@@ -1,0 +1,28 @@
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+.vs/
+ExportedObj/
+.consulo/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.log
+basename.exe.stackdump
+sed.exe.stackdump
+sh.exe.stackdump
+uname.exe.stackdump
+grep.exe.stackdump
+Canaboss/Assets/TextMesh Pro/Resources/Style Sheets.meta
+Canaboss/Assets/TextMesh Pro/Resources/Fonts & Materials.meta
+Canaboss/Assets/TextMesh Pro/Resources.meta
+Canaboss/Assets/TextMesh Pro.meta
+Canaboss/Assets/FMODStudioCache.asset
+Canaboss/Assets/FMODStudioCache.asset.meta

@@ -1,0 +1,10 @@
+{
+    "name": "UnityContainerExamples",
+    "references": [
+        "UnityContainer"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}

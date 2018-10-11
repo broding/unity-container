@@ -26,14 +26,37 @@ namespace BasRoding.UnityContainer {
 
     public abstract class Container<U, T> : Container where U : ContainerItem<T> {
 
-        [SerializeField] protected U containerItemTemplate;
+        [SerializeField] public U ContainerItemTemplate;
 
         private IContainerCollection<T> internalCollection;
         private List<U> items = new List<U>();
+        private bool isInitialized = false;
 
         public IEnumerable<U> Items {
             get {
                 return items;
+            }
+        }
+
+        protected virtual void Awake() {
+            if(ContainerItemTemplate != null) {
+                ContainerItemTemplate.gameObject.SetActive(false);
+            }
+        }
+
+        public virtual void Initialize() {
+            if (ContainerItemTemplate == null) {
+                throw new System.Exception("Container item template is null at " + gameObject.name);
+            }
+
+            ContainerItemTemplate.gameObject.SetActive(false);
+            isInitialized = true;
+        }
+
+        protected virtual void OnDestroy() {
+            if (internalCollection != null) {
+                internalCollection.AddedItem.RemoveListener(OnItemAdded);
+                internalCollection.RemovedItem.RemoveListener(OnItemRemoved);
             }
         }
 
@@ -46,6 +69,10 @@ namespace BasRoding.UnityContainer {
         }
 
         public U CreateItem(T data) {
+            if (!isInitialized) {
+                Initialize();
+            }
+
             U oldItem = items.FirstOrDefault(i => i.Data.Equals(data));
             if (oldItem != null) {
                 oldItem.UpdateItem(data);
@@ -92,6 +119,10 @@ namespace BasRoding.UnityContainer {
         }
 
         public virtual void UpdateContainer(IEnumerable<T> dataCollection) {
+            if (!isInitialized) {
+                Initialize();
+            }
+
             List<U> oldItems = new List<U>(items);
             items.Clear();
 
@@ -110,23 +141,8 @@ namespace BasRoding.UnityContainer {
             DestroyItems(oldItems);
         }
 
-        protected virtual void Awake() {
-            if (containerItemTemplate == null) {
-                throw new System.Exception("Container item template is null at " + gameObject.name);
-            }
-
-            containerItemTemplate.gameObject.SetActive(false);
-        }
-
-        protected virtual void OnDestroy() {
-            if (internalCollection != null) {
-                internalCollection.AddedItem.RemoveListener(OnItemAdded);
-                internalCollection.RemovedItem.RemoveListener(OnItemRemoved);
-            }
-        }
-
         protected virtual void DestroyGameObject(U item) {
-            GameObject.Destroy(item.gameObject);
+            GameObject.Destroy(item.gameObject  );
         }
 
         private void OnItemAdded(T data) {
@@ -138,12 +154,12 @@ namespace BasRoding.UnityContainer {
         }
 
         protected virtual U InstantiateTemplate(T data) {
-            return Instantiate(containerItemTemplate);
+            return Instantiate(ContainerItemTemplate);
         }
 
         private U InstantiateItem(T data) {
             U item = InstantiateTemplate(data);
-            item.transform.SetParent(containerItemTemplate.transform.parent, false);
+            item.transform.SetParent(ContainerItemTemplate.transform.parent, false);
             item.gameObject.SetActive(true);
             item.Initialize(data);
             item.UpdateItem(data);

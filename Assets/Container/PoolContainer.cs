@@ -6,17 +6,17 @@ namespace BasRoding.UnityContainer {
 
     public class PoolContainer<U, T> : Container<U, T> where U : ContainerItem<T> {
 
-        [SerializeField] private int initialPoolSize = 20;
-        [SerializeField] private int maxPoolSize;
+        [SerializeField] public int InitialPoolSize = 20;
+        [SerializeField] public int MaxPoolSize;
 
         private Stack<U> pool = new Stack<U>();
 
-        protected override void Awake() {
-            base.Awake();
+        public override void Initialize() {
+            base.Initialize();
 
-            for(int i = 0; i < initialPoolSize; i++) {
-                U item = Instantiate(containerItemTemplate);
-                item.transform.SetParent(containerItemTemplate.transform.parent, false);
+            for(int i = 0; i < InitialPoolSize; i++) {
+                U item = Instantiate(ContainerItemTemplate);
+                item.transform.SetParent(ContainerItemTemplate.transform.parent, false);
                 item.gameObject.SetActive(false);
                 pool.Push(item);
             }
@@ -26,7 +26,7 @@ namespace BasRoding.UnityContainer {
             if(pool.Count > 0) {
                 return pool.Pop();
             } else {
-                return Instantiate(containerItemTemplate);
+                return Instantiate(ContainerItemTemplate);
             }
         }
 

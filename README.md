@@ -4,3 +4,4 @@ A simple extension for Unity3D to make lists and collections way easier to creat
 ## Installation
 Copy the **Assets/VeryGenericContainer** folder into the Assets folder of your project.
 ## Usage
+See the **Assets/VeryGenericContainerExamples** for some simple examples.

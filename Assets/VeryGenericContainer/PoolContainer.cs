@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BasRoding.UnityContainer {
+namespace BasRoding.VeryGenericContainer {
 
     public class PoolContainer<U, T> : Container<U, T> where U : ContainerItem<T> {
 

@@ -1,11 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using BasRoding.UnityContainer;
+﻿using BasRoding.VeryGenericContainer;
 
-public class TestContainer : Container<TestItem, Weapon> {
+public class DummyContainer : Container<DummyItem, Weapon> {
 }
 
 public class Weapon {
-
 }

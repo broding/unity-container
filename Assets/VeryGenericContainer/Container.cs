@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BasRoding.UnityContainer {
+namespace BasRoding.VeryGenericContainer {
 
     public abstract class ContainerItem<T> : MonoBehaviour {
         public T Data { get; private set; }

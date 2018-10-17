@@ -4,25 +4,24 @@ using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System;
 using System.Text.RegularExpressions;
 
 public class ContainerTests {
 
     [TearDown]
     public void DestroyExistingContainer() {
-        TestContainer testContainer = GameObject.FindObjectOfType<TestContainer>();
+        DummyContainer testContainer = GameObject.FindObjectOfType<DummyContainer>();
         if(testContainer != null) {
             GameObject.DestroyImmediate(testContainer.gameObject);
         }
     }
 
-    private TestContainer CreateTestContainer() {
+    private DummyContainer CreateTestContainer() {
         GameObject containerGo = new GameObject();
         GameObject itemGo = new GameObject();
         itemGo.transform.SetParent(containerGo.transform);
-        TestContainer container = containerGo.AddComponent<TestContainer>();
-        TestItem item = itemGo.AddComponent<TestItem>();
+        DummyContainer container = containerGo.AddComponent<DummyContainer>();
+        DummyItem item = itemGo.AddComponent<DummyItem>();
         container.ContainerItemTemplate = item;
         container.Initialize();
 
@@ -41,7 +40,7 @@ public class ContainerTests {
 
     [Test]
     public void UpdateContainer_IsItemCountCorrect() {
-        TestContainer container = CreateTestContainer();
+        DummyContainer container = CreateTestContainer();
         IEnumerable<Weapon> weapons = CreateWeaponsList(5);
         container.UpdateContainer(weapons);
 
@@ -50,16 +49,16 @@ public class ContainerTests {
 
     [Test]
     public void UpdateContainer_AreGameObjectsCorrectlySpawned() {
-        TestContainer container = CreateTestContainer();
+        DummyContainer container = CreateTestContainer();
         IEnumerable<Weapon> weapons = CreateWeaponsList(5);
         container.UpdateContainer(weapons);
 
-        Assert.AreEqual(5, GameObject.FindObjectsOfType<TestItem>().Length);
+        Assert.AreEqual(5, GameObject.FindObjectsOfType<DummyItem>().Length);
     }
 
     [UnityTest]
     public IEnumerator UpdateContainer_AreOldItemsDestroyed() {
-        TestContainer container = CreateTestContainer();
+        DummyContainer container = CreateTestContainer();
         IEnumerable<Weapon> oldWeapons = CreateWeaponsList(5);
         container.UpdateContainer(oldWeapons);
         
@@ -68,12 +67,12 @@ public class ContainerTests {
 
         yield return new WaitForEndOfFrame();
         
-        Assert.AreEqual(5, GameObject.FindObjectsOfType<TestItem>().Length);
+        Assert.AreEqual(5, GameObject.FindObjectsOfType<DummyItem>().Length);
     }
 
     [Test]
     public void UpdateContainer_IsItemCountCorrectAfterNewUpdateContainer() {
-        TestContainer container = CreateTestContainer();
+        DummyContainer container = CreateTestContainer();
         IEnumerable<Weapon> oldWeapons = CreateWeaponsList(5);
         container.UpdateContainer(oldWeapons);
 
@@ -85,7 +84,7 @@ public class ContainerTests {
 
     [Test]
     public void UpdateContainer_AreOldItemsNotFoundAfterNewUpdateContainer() {
-        TestContainer container = CreateTestContainer();
+        DummyContainer container = CreateTestContainer();
         IEnumerable<Weapon> oldWeapons = CreateWeaponsList(5);
         container.UpdateContainer(oldWeapons);
 
@@ -99,7 +98,7 @@ public class ContainerTests {
 
     [Test]
     public void DestroyItem_IsItemDestroyed() {
-        TestContainer container = CreateTestContainer();
+        DummyContainer container = CreateTestContainer();
         IEnumerable<Weapon> weapons = CreateWeaponsList(5);
         container.UpdateContainer(weapons);
         container.DestroyItem(weapons.First());
@@ -109,7 +108,7 @@ public class ContainerTests {
 
     [Test]
     public void DestroyItem_IsItemsEmpty() {
-        TestContainer container = CreateTestContainer();
+        DummyContainer container = CreateTestContainer();
         List<Weapon> weapons = CreateWeaponsList(5);
         container.UpdateContainer(weapons);
 
@@ -124,7 +123,7 @@ public class ContainerTests {
 
     [UnityTest]
     public IEnumerator DestroyItem_AreItemGameObjectsDestroyed() {
-        TestContainer container = CreateTestContainer();
+        DummyContainer container = CreateTestContainer();
         List<Weapon> weapons = CreateWeaponsList(5);
         container.UpdateContainer(weapons);
 
@@ -136,12 +135,12 @@ public class ContainerTests {
 
         yield return new WaitForEndOfFrame();
 
-        Assert.AreEqual(0, GameObject.FindObjectsOfType<TestItem>().Length);
+        Assert.AreEqual(0, GameObject.FindObjectsOfType<DummyItem>().Length);
     }
 
     [Test]
     public void Clear_IsItemsEmpty() {
-        TestContainer container = CreateTestContainer();
+        DummyContainer container = CreateTestContainer();
         IEnumerable<Weapon> weapons = CreateWeaponsList(5);
         container.UpdateContainer(weapons);
         container.Clear();
@@ -151,7 +150,7 @@ public class ContainerTests {
 
     [Test]
     public void CreateItem_IsItemsCountIncreased() {
-        TestContainer container = CreateTestContainer();
+        DummyContainer container = CreateTestContainer();
         IEnumerable<Weapon> weapons = CreateWeaponsList(5);
         container.UpdateContainer(weapons);
         Weapon weapon = new Weapon();
@@ -162,25 +161,25 @@ public class ContainerTests {
 
     [UnityTest]
     public IEnumerator Clear_AreGameObjectsDestroyed() {
-        TestContainer container = CreateTestContainer();
+        DummyContainer container = CreateTestContainer();
         IEnumerable<Weapon> weapons = CreateWeaponsList(5);
         container.UpdateContainer(weapons);
         container.Clear();
 
         yield return new WaitForEndOfFrame();
 
-        Assert.AreEqual(0, GameObject.FindObjectsOfType<TestItem>().Length);
+        Assert.AreEqual(0, GameObject.FindObjectsOfType<DummyItem>().Length);
     }
 
     [Test]
     public void GetItem_IsItemSame() {
-        TestContainer container = CreateTestContainer();
+        DummyContainer container = CreateTestContainer();
         IEnumerable<Weapon> weapons = CreateWeaponsList(5);
         container.UpdateContainer(weapons);
         Weapon weapon = new Weapon();
         container.CreateItem(weapon);
 
-        TestItem item = container.GetItem(weapon);
+        DummyItem item = container.GetItem(weapon);
 
         Assert.AreSame(weapon, item.Data);
     }
@@ -189,7 +188,7 @@ public class ContainerTests {
     public void GetItem_IsNewItemNotFound() {
         LogAssert.ignoreFailingMessages = true;
 
-        TestContainer container = CreateTestContainer();
+        DummyContainer container = CreateTestContainer();
         IEnumerable<Weapon> weapons = CreateWeaponsList(5);
         container.UpdateContainer(weapons);
         Weapon nonAddedWeapon = new Weapon();

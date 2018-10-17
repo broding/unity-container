@@ -1,4 +1,4 @@
-﻿using BasRoding.VeryGenericContainer;
+﻿using VeryGenericContainer;
 
 public class DummyItem : ContainerItem<Weapon> {
 }

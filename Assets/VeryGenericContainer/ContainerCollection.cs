@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.Events;
 
-namespace BasRoding.VeryGenericContainer {
+namespace VeryGenericContainer {
 
     public interface IContainerCollection<T> : IEnumerable<T> {
         ContainerEvent<T> AddedItem { get; }

@@ -2,7 +2,7 @@
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace BasRoding.VeryGenericContainer {
+namespace VeryGenericContainer {
 
     public abstract class ButtonContainer<U, T> : Container<U, T> where U : ButtonContainerItem<T> {
 

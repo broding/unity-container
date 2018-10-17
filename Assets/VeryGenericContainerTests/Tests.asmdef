@@ -1,8 +1,7 @@
 {
     "name": "EditorTests",
     "references": [
-        "UnityContainer",
-        "UnityContainerExamples"
+        "UnityContainer"
     ],
     "optionalUnityReferences": [
         "TestAssemblies"

@@ -11,10 +11,6 @@ namespace VeryGenericContainer {
             Data = data;
         }
 
-        public virtual void UpdateItem(T data) {
-            Data = data;
-        }
-
         public virtual void Dispose() {
 
         }
@@ -75,7 +71,7 @@ namespace VeryGenericContainer {
 
             U oldItem = items.FirstOrDefault(i => i.Data.Equals(data));
             if (oldItem != null) {
-                oldItem.UpdateItem(data);
+                oldItem.Initialize(data);
                 return oldItem;
             }
 
@@ -129,7 +125,7 @@ namespace VeryGenericContainer {
             foreach (T data in dataCollection) {
                 U item = oldItems.FirstOrDefault(i => i.Data != null && i.Data.Equals(data));
                 if (item != null) {
-                    item.UpdateItem(data);
+                    item.Initialize(data);
                     oldItems.Remove(item);
                     items.Add(item);
                 } else {
@@ -162,7 +158,6 @@ namespace VeryGenericContainer {
             item.transform.SetParent(ContainerItemTemplate.transform.parent, false);
             item.gameObject.SetActive(true);
             item.Initialize(data);
-            item.UpdateItem(data);
 
             return item;
         }

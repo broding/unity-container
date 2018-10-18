@@ -10,8 +10,6 @@ namespace VeryGenericContainer.Examples {
         [SerializeField] private Text labelText;
 
         public override void OnSetup(Food data) {
-            base.Setup(data);
-
             labelText.text = data.Name;
         }
 

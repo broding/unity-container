@@ -9,10 +9,13 @@ namespace VeryGenericContainer.Examples {
 
         [SerializeField] private Text labelText;
 
-        public override void Initialize(Food food) {
-            base.Initialize(food);
+        public override void OnSetup(Food data) {
+            base.Setup(data);
 
-            labelText.text = food.Name;
+            labelText.text = data.Name;
+        }
+
+        public override void OnDispose() {
         }
     }
 }

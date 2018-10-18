@@ -7,13 +7,13 @@ namespace VeryGenericContainer {
     public abstract class ContainerItem<T> : MonoBehaviour {
         public T Data { get; private set; }
 
-        public virtual void Initialize(T data) {
+        public void Setup(T data) {
             Data = data;
+            OnSetup(Data);
         }
 
-        public virtual void Dispose() {
-
-        }
+        public abstract void OnSetup(T data);
+        public abstract void OnDispose();
     }
 
     public abstract class Container : MonoBehaviour {
@@ -71,7 +71,7 @@ namespace VeryGenericContainer {
 
             U oldItem = items.FirstOrDefault(i => i.Data.Equals(data));
             if (oldItem != null) {
-                oldItem.Initialize(data);
+                oldItem.Setup(data);
                 return oldItem;
             }
 
@@ -103,7 +103,7 @@ namespace VeryGenericContainer {
 
         public void DestroyItem(U item) {
             OnItemDestroyed(item);
-            item.Dispose();
+            item.OnDispose();
             items.Remove(item);
             DestroyGameObject(item);
         }
@@ -125,7 +125,7 @@ namespace VeryGenericContainer {
             foreach (T data in dataCollection) {
                 U item = oldItems.FirstOrDefault(i => i.Data != null && i.Data.Equals(data));
                 if (item != null) {
-                    item.Initialize(data);
+                    item.Setup(data);
                     oldItems.Remove(item);
                     items.Add(item);
                 } else {
@@ -157,7 +157,7 @@ namespace VeryGenericContainer {
             U item = InstantiateTemplate(data);
             item.transform.SetParent(ContainerItemTemplate.transform.parent, false);
             item.gameObject.SetActive(true);
-            item.Initialize(data);
+            item.Setup(data);
 
             return item;
         }

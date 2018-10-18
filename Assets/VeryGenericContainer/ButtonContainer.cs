@@ -21,8 +21,7 @@ namespace VeryGenericContainer {
 
     public abstract class ButtonContainerItem<T> : ContainerItem<T> {
 
-        [SerializeField]
-        protected Button button;
+        [SerializeField] protected Button button;
 
         public readonly ButtonEvent<T> ButtonClicked = new ButtonEvent<T>();
 

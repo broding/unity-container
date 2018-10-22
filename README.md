@@ -11,5 +11,50 @@ This is where Very Generic Container comes to save you. It handles all the insta
 ## Installation
 Copy the **Assets/VeryGenericContainer** folder into the Assets folder of your project.
 
-## Usage
+## Examples
 See the **Assets/VeryGenericContainerExamples** folder for some simple examples.
+
+## Usage
+
+### The data class
+Find or create the class which holds the data you want to show.
+```c#
+public class Food {
+
+  public readonly string Name;
+
+  public Food(string name) {
+      Name = name;
+  }
+
+}
+```
+
+### Derive from ContainerItem
+Now we will create the class that will serve as a component on the items of our container.
+```c#
+public class FoodItem : ContainerItem<Food> {
+
+    [SerializeField] private Text labelText;
+
+    public override void OnSetup(Food data) {
+        labelText.text = data.Name;
+    }
+
+    public override void OnDispose() {
+    }
+}
+```
+
+### Derive the Container
+Now we will create the parent class which will hold all the individual items. It derives from `Container`.
+```c#
+ public class FoodContainer : Container<FoodItem, Food> {
+}
+```
+
+### Setting up the GameObjects
+#### Create the container GameObject
+![Create the container GameObject](https://user-images.githubusercontent.com/2270398/47284143-8bd53400-d5e6-11e8-9c65-8b767bc1b13e.png)
+#### Create the container item GameObject
+![Create the container GameObject](https://user-images.githubusercontent.com/2270398/47284144-8ed02480-d5e6-11e8-9a9d-c07b8662121a.png)

@@ -15,8 +15,8 @@ namespace VeryGenericContainer {
             base.Initialize();
 
             for(int i = 0; i < InitialPoolSize; i++) {
-                U item = Instantiate(ContainerItemTemplate);
-                item.transform.SetParent(ContainerItemTemplate.transform.parent, false);
+                U item = Instantiate(ItemTemplate);
+                item.transform.SetParent(ItemTemplate.transform.parent, false);
                 item.gameObject.SetActive(false);
                 pool.Push(item);
             }
@@ -26,7 +26,7 @@ namespace VeryGenericContainer {
             if(pool.Count > 0) {
                 return pool.Pop();
             } else {
-                return Instantiate(ContainerItemTemplate);
+                return Instantiate(ItemTemplate);
             }
         }
 

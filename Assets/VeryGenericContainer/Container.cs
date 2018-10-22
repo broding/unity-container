@@ -22,7 +22,7 @@ namespace VeryGenericContainer {
 
     public abstract class Container<U, T> : Container where U : ContainerItem<T> {
 
-        [SerializeField] public U ContainerItemTemplate;
+        [SerializeField] public U ItemTemplate;
 
         private IContainerCollection<T> internalCollection;
         private List<U> items = new List<U>();
@@ -35,17 +35,17 @@ namespace VeryGenericContainer {
         }
 
         protected virtual void Awake() {
-            if(ContainerItemTemplate != null) {
-                ContainerItemTemplate.gameObject.SetActive(false);
+            if(ItemTemplate != null) {
+                ItemTemplate.gameObject.SetActive(false);
             }
         }
 
         public virtual void Initialize() {
-            if (ContainerItemTemplate == null) {
+            if (ItemTemplate == null) {
                 throw new System.Exception("Container item template is null at " + gameObject.name);
             }
 
-            ContainerItemTemplate.gameObject.SetActive(false);
+            ItemTemplate.gameObject.SetActive(false);
             isInitialized = true;
         }
 
@@ -150,12 +150,12 @@ namespace VeryGenericContainer {
         }
 
         protected virtual U InstantiateTemplate(T data) {
-            return Instantiate(ContainerItemTemplate);
+            return Instantiate(ItemTemplate);
         }
 
         private U InstantiateItem(T data) {
             U item = InstantiateTemplate(data);
-            item.transform.SetParent(ContainerItemTemplate.transform.parent, false);
+            item.transform.SetParent(ItemTemplate.transform.parent, false);
             item.gameObject.SetActive(true);
             item.Setup(data);
 

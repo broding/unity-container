@@ -20,7 +20,7 @@ public class PoolContainerTests : MonoBehaviour {
         itemGo.transform.SetParent(containerGo.transform);
         DummyPoolContainer container = containerGo.AddComponent<DummyPoolContainer>();
         DummyItem item = itemGo.AddComponent<DummyItem>();
-        container.ContainerItemTemplate = item;
+        container.ItemTemplate = item;
         container.Initialize();
 
         return container;

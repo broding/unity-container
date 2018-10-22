@@ -22,7 +22,7 @@ public class ContainerTests {
         itemGo.transform.SetParent(containerGo.transform);
         DummyContainer container = containerGo.AddComponent<DummyContainer>();
         DummyItem item = itemGo.AddComponent<DummyItem>();
-        container.ContainerItemTemplate = item;
+        container.ItemTemplate = item;
         container.Initialize();
 
         return container;

@@ -6,7 +6,7 @@ You have a collection of data, for example a list of highscores, and you want to
 
 That's sounds easy (well, it is), but there are many more situations where you have a collection of data and show them in a list of GameObjects. And you don't want to write seperate code for each of these situations.
 
-This is where Very Generic Container comes to save you. It handles all the instantiating, destroying, pooling and managing of your collection of GameObjects. You just feed it a collection of data and Very Generic Container will handle the rest.
+This is where Very Generic Container comes to save you. It handles all the instantiating, destroying and pooling of GameObjects. You just feed it a collection of data and Very Generic Container will handle the rest.
 
 ## Installation
 Copy the **Assets/VeryGenericContainer** folder into the Assets folder of your project.

@@ -58,8 +58,25 @@ public class FoodContainer : Container<FoodItem, Food> {
 Create the parent GameObject and add the ```FoodContainer``` script. 
 ![Create the container GameObject](https://user-images.githubusercontent.com/2270398/47284143-8bd53400-d5e6-11e8-9c65-8b767bc1b13e.png)
 #### Create the container item GameObject
-Create the item GameObject as a child of the container GameObject and ad the ```FoodItem``` script. This GameObject will serve as a template for all the items.
+Create the item GameObject as a child of the container GameObject and ad the ```FoodItem``` script. This GameObject will serve as a template for all the items. In our example we also attached a Text to it.
 ![Create the container GameObject](https://user-images.githubusercontent.com/2270398/47284144-8ed02480-d5e6-11e8-9a9d-c07b8662121a.png)
 ### Assign the template item
 Assign the ```FoodItem``` component to the ```ItemTemplate``` field on the ```FoodContainer``` script. 
 
+### Using the container
+That's all! All we need to do is feed some data to the container. For this we use the ```UpdateContainer()``` method.
+```c#
+public class FoodContainer : Container<FoodItem, Food> {
+    private void Start() {
+        List<Food> foods = new List<Food>();
+
+        foods.Add(new Food("Apple"));
+        foods.Add(new Food("Bread"));
+        foods.Add(new Food("Pasta"));
+        foods.Add(new Food("Chocolate"));
+        foods.Add(new Food("Yoghurt"));
+
+        UpdateContainer(foods);
+    }
+}
+```

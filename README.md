@@ -1,5 +1,5 @@
 # Very Generic Container for Unity3D
-A simple extension for Unity3D to make lists and collections of GameObjects easier to create and manage.
+A simple extension for Unity3D to make collections of data easier to create and manage.
 
 ## Why you want this
 You have a collection of data, for example a list of highscores, and you want to show them in a UI window. You'd have to create a seperate GameObject for every highscore entry and set the values like the player's name and the score. You'd wanna keep track of these GameObjects and maybe even pool them.

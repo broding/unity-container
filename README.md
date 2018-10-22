@@ -83,3 +83,5 @@ public class FoodContainer : Container<FoodItem, Food> {
     }
 }
 ```
+### Result
+![Result](https://user-images.githubusercontent.com/2270398/47287408-6c440880-d5f2-11e8-80f1-e5e0925eab86.png)

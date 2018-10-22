@@ -21,11 +21,11 @@ Find or create the class which holds the data you want to show.
 ```c#
 public class Food {
 
-  public readonly string Name;
+    public readonly string Name;
 
-  public Food(string name) {
-      Name = name;
-  }
+    public Food(string name) {
+        Name = name;
+    }
 
 }
 ```
@@ -49,12 +49,17 @@ public class FoodItem : ContainerItem<Food> {
 ### Derive the Container
 Now we will create the parent class which will hold all the individual items. It derives from `Container`.
 ```c#
- public class FoodContainer : Container<FoodItem, Food> {
+public class FoodContainer : Container<FoodItem, Food> {
 }
 ```
 
 ### Setting up the GameObjects
 #### Create the container GameObject
+Create the parent GameObject and add the ```FoodContainer``` script. 
 ![Create the container GameObject](https://user-images.githubusercontent.com/2270398/47284143-8bd53400-d5e6-11e8-9c65-8b767bc1b13e.png)
 #### Create the container item GameObject
+Create the item GameObject as a child of the container GameObject and ad the ```FoodItem``` script. This GameObject will serve as a template for all the items.
 ![Create the container GameObject](https://user-images.githubusercontent.com/2270398/47284144-8ed02480-d5e6-11e8-9a9d-c07b8662121a.png)
+### Assign the template item
+Assign the ```FoodItem``` component to the ```ItemTemplate``` field on the ```FoodContainer``` script. 
+

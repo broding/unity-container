@@ -8,8 +8,17 @@ namespace VeryGenericContainer {
 
         [SerializeField] public int InitialPoolSize = 20;
         [SerializeField] public int MaxPoolSize = 100;
+        [SerializeField] private bool InitializeOnAwake = true;
 
         private readonly Stack<U> pool = new Stack<U>();
+
+        protected override void Awake() {
+            base.Awake();
+
+            if (InitializeOnAwake) {
+                Initialize();
+            }
+        }
 
         public override void Initialize() {
             base.Initialize();
@@ -22,9 +31,17 @@ namespace VeryGenericContainer {
             }
         }
 
+        public override void UpdateContainer(IEnumerable<T> dataCollection) {
+            Clear();
+
+            base.UpdateContainer(dataCollection);
+        }
+
         protected override U InstantiateTemplate(T data) {
             if(pool.Count > 0) {
-                return pool.Pop();
+                U item = pool.Pop();
+                item.transform.SetAsLastSibling();
+                return item;
             } else {
                 return Instantiate(ItemTemplate);
             }
